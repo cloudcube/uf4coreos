@@ -1,0 +1,14 @@
+[Unit]
+Description=PostgreSQL
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill postgresql
+ExecStartPre=-/usr/bin/docker rm -f postgresql
+ExecStartPre=/usr/bin/docker pull postgresql
+ExecStart=/usr/bin/docker run -d -p 5432:5432 --name vshophub_db -v ~/pgdata:/var/lib/pgsql/9.3:rw -e POSTGRESQL_USER=demo -e POSTGRESQL_PASS=demo -e POSTGRESQL_DB=demo 'cloudcube/postgresql'
+
+[Install]
+WantedBy=multi-user.target
