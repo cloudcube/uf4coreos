@@ -1,0 +1,14 @@
+[Unit]                                                                                                                                                
+Description=MySQL                                                                                                                                
+After=docker.service                                                                                                                                  
+Requires=docker.service                                                                                                                               
+                                                                                                                                                      
+[Service]                                                                                                                                             
+TimeoutStartSec=0                                                                                                                                     
+ExecStartPre=-/usr/bin/docker kill mysql                                                                                                         
+ExecStartPre=-/usr/bin/docker rm -f mysql                                                                                                        
+ExecStartPre=/usr/bin/docker pull quay.io/cloudcube/mysql                                                                                        
+ExecStart=/usr/bin/docker run --name mysql  -e MYSQL_ROOT_PASSWORD=demo -p 3306:3306 -d quay.io/cloudcube/mysql
+
+[Install]                                                                                                                                             
+WantedBy=multi-user.target
