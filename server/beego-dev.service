@@ -1,14 +1,10 @@
-[Unit]
-Description=Beego-Dev
-After=docker.service
-Requires=docker.service
-
-[Service]
-TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill beego-dev
-ExecStartPre=-/usr/bin/docker rm -f beego-dev
-ExecStartPre=/usr/bin/docker pull cloudcube/beego-dev
-ExecStart=/usr/bin/docker run -p 2222:22 --name beego-dev -p 8080:8080 -P -v ~/data:/root/projs -e PROJ_NAME=test -d --link postgresql:db  cloudcube/beego-dev
-
-[Install]
+[Unit]                                                                                                                                                Description=Beego-Dev                                                                                                                                 After=docker.service                                                                                                                                  Requires=docker.service                                                                                                                               
+                                                                                                                                                      
+[Service]                                                                                                                                             
+TimeoutStartSec=0                                                                                                                                     
+ExecStartPre=-/usr/bin/docker kill beego-dev                                                                                                          
+ExecStartPre=-/usr/bin/docker rm -f beego-dev                                                                                                         
+ExecStartPre=/usr/bin/docker pull quay.io/cloudcube/beego-dev                                                                                         ExecStart=/usr/bin/docker run -p 2222:22 --name beego-dev -p 8080:8080 -P -v /home/core/data/projs:/root/projs -e PROJ_NAME=demo -d --link postgresql:db  quay.io/cloudcube/beego-dev                                                                                                                   
+                                                                                                                                                      
+[Install]                                                                                                                                             
 WantedBy=multi-user.target
